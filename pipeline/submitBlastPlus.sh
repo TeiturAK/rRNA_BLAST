@@ -3,28 +3,31 @@
 ## be verbose and print
 set -eux
 
-proj=facility
+proj=snic2021-5-312
 mail=teitur.kalman@umu.se
 
 ## source functions
 source ../UPSCb-common/src/bash/functions.sh
 
-in=/mnt/picea/home/tkalman/rRNA/rRNA_seq/Picea-Pinus_rRNA-subunits.merge-id90_split-fasta
-db_basename=/mnt/picea/home/tkalman/rRNA/BLAST_DB/pabies-2.0_chromosomes_and_unplaced.fa/pabies-2.0_chromosomes_and_unplaced.fa.db
-out=/mnt/picea/home/tkalman/rRNA/BLAST_results/Picea-Pinus__BLASTn__pabies-2.0_chromosomes_and_unplaced_12-Aug-2021
+#in=/crex/proj/uppstore2017145/V3/blast/rRNA_seq/Picea-Pinus_rRNA-subunits.merge-id90_split-fasta
 
-for f in $(find $in -name "*.fa"); do
-  fnam=$(basename $f)
+in=/crex/proj/uppstore2017145/V3/blast/rRNA_seq/Picea-Pinus_rRNA-subunits.merge-id90.fa
 
-  outdir=$out/$fnam
+db_basename=/crex/proj/uppstore2017145/V3/blast/blast_DB/Picea-abies/pabies-2.0_chromosomes_and_unplaced.fa.db
+out=/crex/proj/uppstore2017145/V3/blast/blast_results/Picea-abies/Picea-Pinus__BLASTn__pabies-2.0_chromosomes_and_unplaced_26-Aug-2021
 
-  if [ ! -d $outdir ]; then
-        mkdir -p $outdir
-  fi
-
-  sbatch -A $proj -t 3:00:00 --mail-user=$mail -e $outdir/$fnam.err -o $outdir/$fnam.out \
-  -J $fnam -p core runBlastPlus.sh blastn $f $db_basename $outdir
-done
+#for f in $(find $in -name "*.fa"); do
+#  fnam=$(basename $f)
+#
+#  outdir=$out/$fnam
+#
+#  if [ ! -d $outdir ]; then
+#        mkdir -p $outdir
+#  fi
+#
+#  sbatch -A $proj -t 3:00:00 --mail-user=$mail -e $outdir/$fnam.err -o $outdir/$fnam.out \
+#  -J $fnam -p node -N 10 -n 40 -C mem128GB runBlastPlus.sh blastn $f $db_basename $outdir
+#done
 
 
 #Usage: $0 [options] <blast command> <fasta file> <index> <out dir>
@@ -35,5 +38,13 @@ done
 #                -p number of threads to use (default $PROC)
 #                -b blast options (example -task blastn instead of megablast)
 
-#sbatch -A $proj -t 24:00:00 --mail-user=$mail -e $out/$fnam.err -o $out/$fnam.out \
-#-J $fnam -p rbx runBlastPlus.sh blastn $query $db_basename $out
+fnam=$(basename $in)
+outdir=$out/$fnam
+
+if [ ! -d $outdir ]; then
+	mkdir -p $outdir
+fi
+
+sbatch -A $proj -t 24:00:00 --mail-user=$mail -e $outdir/$fnam.err -o $outdir/$fnam.out \
+-J $fnam -p node -N 20 -n 80 -C mem128GB runBlastPlus.sh blastn $in $db_basename $outdir
+

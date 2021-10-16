@@ -1,7 +1,4 @@
 #!/bin/bash -l
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=64
-##SBATCH --mem-per-cpu=8000
 
 ## no mail at the time
 ###SBATCH --mail-type=ALL
@@ -15,8 +12,6 @@ set -x
 ## load the modules
 module load bioinfo-tools
 module load blast/2.6.0+
-
-export BLASTDB_LMDB_MAP_SIZE=100000000
 
 
 ## check the options if any
