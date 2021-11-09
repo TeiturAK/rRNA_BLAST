@@ -1,0 +1,88 @@
+#' ---
+#' title: "RepeatMasker rRNA report summary"
+#' author: "Teitur Ahlgren Kalman"
+#' date: "`r Sys.Date()`"
+#' output:
+#'  html_document:
+#'    toc: true
+#'    number_sections: false
+#'    code_folding: "hide"
+#' ---
+
+#' # Libraries 
+suppressPackageStartupMessages({
+  library(systemPipeR)
+  library(ggplot2)
+})
+
+#' # Description
+#' Looking at the where rRNA sequences are found in the new P.abies assembly.
+#' 
+#' To produce this report I intersected 10kb windows of the genome with locations 
+#' of the rRNA sequences found with RepeatMasker.
+
+#' ```{r set up, echo=FALSE}
+#' knitr::opts_knit$set(root.dir="/mnt/picea/home/tkalman")
+#' ```
+
+#' # How much of the chromosomes have with regions with found rDNA?
+#' All rDNA annotations are merged and non-redundant so no two regions overlap.
+rDNA.total_count <- system(paste("cat /mnt/picea/home/tkalman/rRNA_facility/RepeatMasker_only-chromosomes_4-Nov-2021/*/*.fasta.merged.bed | awk '{print $3-$2}' | awk '{s+=$1} END {print s}'"),intern = TRUE)
+print (rDNA.total_count)
+
+#' # Functions for plotting
+#' Looking at the intersects chunk by chunk to keep memory down
+every_nth = function(n) {
+  return(function(x) {x[c(TRUE, rep(FALSE, n - 1))]})
+}
+
+plot.sliding_window_intersect <- function(RM.path, contig.ID) {
+  tmp.df <- data.frame(do.call(rbind, strsplit(system(paste("grep -w", contig.ID, RM.path), intern = TRUE), "\t")))
+  
+  tmp.df$window <- paste0(tmp.df$X2, "-", tmp.df$X3)
+  
+  ggplot(tmp.df, aes(x = window, y = as.numeric(X7), group = 1)) +
+    geom_point() +
+    scale_x_discrete(breaks = every_nth(n = 20000)) +
+    ggtitle(paste("rRNA feature overlap per 10kb window in:", contig.ID)) +
+    ylab("length of overlap (bp)") +
+    theme_minimal() +
+    theme(axis.text.x = element_text(size = 7, angle = 45, hjust = 1))
+ }
+
+#' # Plot intersect data
+plot.sliding_window_intersect("/mnt/picea/home/tkalman/rRNA/sliding-window/P.abies/intersect/Pabies.10000bp-windows-pabies-2.0_chromosomes.part_001.fasta.merged.tsv", 
+                              "PA_chr01")
+
+plot.sliding_window_intersect("/mnt/picea/home/tkalman/rRNA/sliding-window/P.abies/intersect/Pabies.10000bp-windows-pabies-2.0_chromosomes.part_001.fasta.merged.tsv", 
+                              "PA_chr02")
+
+plot.sliding_window_intersect("/mnt/picea/home/tkalman/rRNA/sliding-window/P.abies/intersect/Pabies.10000bp-windows-pabies-2.0_chromosomes.part_002.fasta.merged.tsv", 
+                              "PA_chr03")
+
+plot.sliding_window_intersect("/mnt/picea/home/tkalman/rRNA/sliding-window/P.abies/intersect/Pabies.10000bp-windows-pabies-2.0_chromosomes.part_002.fasta.merged.tsv", 
+                              "PA_chr04")
+
+plot.sliding_window_intersect("/mnt/picea/home/tkalman/rRNA/sliding-window/P.abies/intersect/Pabies.10000bp-windows-pabies-2.0_chromosomes.part_003.fasta.merged.tsv", 
+                              "PA_chr05")
+
+plot.sliding_window_intersect("/mnt/picea/home/tkalman/rRNA/sliding-window/P.abies/intersect/Pabies.10000bp-windows-pabies-2.0_chromosomes.part_003.fasta.merged.tsv", 
+                              "PA_chr06")
+
+plot.sliding_window_intersect("/mnt/picea/home/tkalman/rRNA/sliding-window/P.abies/intersect/Pabies.10000bp-windows-pabies-2.0_chromosomes.part_004.fasta.merged.tsv", 
+                              "PA_chr07")
+
+plot.sliding_window_intersect("/mnt/picea/home/tkalman/rRNA/sliding-window/P.abies/intersect/Pabies.10000bp-windows-pabies-2.0_chromosomes.part_004.fasta.merged.tsv", 
+                              "PA_chr08")
+
+plot.sliding_window_intersect("/mnt/picea/home/tkalman/rRNA/sliding-window/P.abies/intersect/Pabies.10000bp-windows-pabies-2.0_chromosomes.part_005.fasta.merged.tsv", 
+                              "PA_chr09")
+
+plot.sliding_window_intersect("/mnt/picea/home/tkalman/rRNA/sliding-window/P.abies/intersect/Pabies.10000bp-windows-pabies-2.0_chromosomes.part_005.fasta.merged.tsv", 
+                              "PA_chr10")
+
+plot.sliding_window_intersect("/mnt/picea/home/tkalman/rRNA/sliding-window/P.abies/intersect/Pabies.10000bp-windows-pabies-2.0_chromosomes.part_006.fasta.merged.tsv", 
+                              "PA_chr11")
+
+plot.sliding_window_intersect("/mnt/picea/home/tkalman/rRNA/sliding-window/P.abies/intersect/Pabies.10000bp-windows-pabies-2.0_chromosomes.part_006.fasta.merged.tsv", 
+                              "PA_chr12")
