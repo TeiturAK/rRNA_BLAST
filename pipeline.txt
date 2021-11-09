@@ -1,0 +1,21 @@
+## split the genome in 8 parts with seqkit split (got corrected to be split in 6 chunks by seqkit while parsing)
+## the unplaced contigs are not split
+seqkit split -p 8 -2 -O /crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/fasta/fasta-split_chromosomes/pabies-2.0_chromosomes.fasta.gz/pabies-2.0_chromosomes.fasta.gz.split /crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/fasta/pabies-2.0_chromosomes.fasta.gz
+
+## run repeatmasker with the merged rRNA -qq -nolow and do not check for bacterial contamination
+RepeatMasker -nolow -no_is -qq -lib /crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/rRNA_seq/Picea-Pinus_rRNA-subunits.merge-id90.fa -dir /crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/RepeatMasker_only-chromosomes_4-Nov-2021/pabies-2.0_chromosomes.part_001.fasta -html /crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/fasta/fasta-split_chromosomes/pabies-2.0_chromosomes.fasta.gz/pabies-2.0_chromosomes.fasta.gz.split/pabies-2.0_chromosomes.part_001.fasta
+
+## convert the repeatmasker .ori.out to bed format 
+awk '{print $5"\t"$6"\t"$7"\t"$10}' /mnt/picea/home/tkalman/rRNA_facility/RepeatMasker_only-unplaced_4-Nov-2021/pabies-2.0_unplaced.fasta/pabies-2.0_unplaced.fasta.ori.out
+
+## merge the bed intervals
+bedtools sort -i /mnt/picea/home/tkalman/rRNA_facility/RepeatMasker_only-chromosomes_4-Nov-2021/pabies-2.0_chromosomes.part_004.fasta/pabies-2.0_chromosomes.part_004.fasta.bed | bedtools merge -i - > /mnt/picea/home/tkalman/rRNA_facility/RepeatMasker_only-chromosomes_4-Nov-2021/pabies-2.0_chromosomes.part_004.fasta/pabies-2.0_chromosomes.part_004.fasta.merged.bed
+
+## create windows for the genome
+bedtools makewindows -g /mnt/picea/home/tkalman/ATAC-seq/sliding-window/P.abies/Pabies.sizes_genome.txt -w 10000
+
+## intersect the rRNA regions with the windows
+bedtools intersect -wao -a /mnt/picea/home/tkalman/rRNA_facility/sliding-window/P.abies/Pabies.10000bp-windows.bed -b /mnt/picea/home/tkalman/rRNA_facility/RepeatMasker_only-chromosomes_4-Nov-2021/pabies-2.0_chromosomes.part_001.fasta/pabies-2.0_chromosomes.part_001.fasta.merged.bed
+
+## analyze the intersect in R
+RepeatMasker_report_summary.R

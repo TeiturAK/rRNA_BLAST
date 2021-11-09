@@ -13,6 +13,9 @@ in=/crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/rRNA_seq/Picea-Pinus_rRNA-subun
 out=/crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/fasta/fasta-split/Picea-abies
 params="-p 8 -2"
 
+module load bioinfo-tools infernal/1.1.2
+
+
 fnam=$(basename $in)
 outdir=$out/$fnam
 
