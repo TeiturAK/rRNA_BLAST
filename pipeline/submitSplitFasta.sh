@@ -9,8 +9,9 @@ mail=teitur.kalman@umu.se
 ## source functions
 source ../UPSCb-common/src/bash/functions.sh
 
-in=/crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/fasta/pabies-2.0_chromosomes_and_unplaced.fa.gz
-out=/crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/fasta/fasta-split
+in=/crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/fasta/pabies-2.0_chromosomes.fasta.gz
+out=/crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/fasta/fasta-split_chromosomes
+
 params="-p 8 -2"
 
 fnam=$(basename $in)

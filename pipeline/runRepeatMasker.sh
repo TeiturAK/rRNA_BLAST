@@ -18,7 +18,7 @@ out=$3
 
 cd $out
 
-RepeatMasker -nolow -qq -lib $mask_ref -dir $out -html $fasta
+RepeatMasker -nolow -no_is -qq -lib $mask_ref -dir $out -html $fasta
 
 
 
