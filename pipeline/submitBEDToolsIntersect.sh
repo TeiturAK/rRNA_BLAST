@@ -12,8 +12,9 @@ module load bioinfo-tools BEDTools
 proj=facility
 mail=teitur.kalman@umu.se
 
-a=/mnt/picea/home/tkalman/rRNA_facility/sliding-window/P.abies/Pabies.10000bp-windows.bed
-b_dir=/mnt/picea/home/tkalman/rRNA_facility/RepeatMasker_only-chromosomes_4-Nov-2021
+#a=/mnt/picea/home/tkalman/rRNA_facility/sliding-window/P.abies/Pabies.10000bp-windows.bed
+a=/mnt/picea/home/tkalman/rRNA_facility/sliding-window/P.abies/unplaced_contiglengths.bed
+b_dir=/mnt/picea/home/tkalman/rRNA_facility/RepeatMasker_only-unplaced_4-Nov-2021/pabies-2.0_unplaced.fasta
 
 out=/mnt/picea/home/tkalman/rRNA/sliding-window/P.abies/intersect
 

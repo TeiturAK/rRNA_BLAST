@@ -17,5 +17,14 @@ bedtools makewindows -g /mnt/picea/home/tkalman/ATAC-seq/sliding-window/P.abies/
 ## intersect the rRNA regions with the windows
 bedtools intersect -wao -a /mnt/picea/home/tkalman/rRNA_facility/sliding-window/P.abies/Pabies.10000bp-windows.bed -b /mnt/picea/home/tkalman/rRNA_facility/RepeatMasker_only-chromosomes_4-Nov-2021/pabies-2.0_chromosomes.part_001.fasta/pabies-2.0_chromosomes.part_001.fasta.merged.bed
 
+## for windows intersecting with more than one rDNA annotation there will be two windows intersects in the output from bedtools intersect, 
+## merge those windows and sum the intersect length
+awk '{print $1"\t"$2"\t"$3"\t"".""\t"$7}' /mnt/picea/home/tkalman/rRNA/sliding-window/P.abies/intersect/Pabies.10000bp-windows-pabies-2.0_chromosomes.part_006.fasta.merged.tsv | bedtools sort -i - | bedtools merge -d -1 -c 5 -o sum -i - > /mnt/picea/home/tkalman/rRNA/sliding-window/P.abies/intersect/Pabies.10000bp-windows-pabies-2.0_chromosomes.part_006.fasta.merged.collapsed.bed
+
 ## analyze the intersect in R
 RepeatMasker_report_summary.R
+
+## Important note about RepeatMasker output:
+## On Uppmax the .fasta.masked file is not produced for all runs, unclear why, LOCALE errors are in the error log. 
+## Running on our server the .fasta.masked is produced, the rest of the files are identical.
+## the .out and ori.out are exactly the same which is used for the downstream analysis so not looking into this issue more.

@@ -10,8 +10,8 @@ source ../UPSCb-common/src/bash/functions.sh
 proj=u2019003
 mail=teitur.kalman@umu.se
 
-in=/mnt/picea/home/tkalman/rRNA_facility/RepeatMasker_only-chromosomes_4-Nov-2021
-out=/mnt/picea/home/tkalman/rRNA_facility/RepeatMasker_only-chromosomes_4-Nov-2021
+in=/mnt/picea/home/tkalman/rRNA_facility/RepeatMasker_only-unplaced_4-Nov-2021/pabies-2.0_unplaced.fasta
+out=/mnt/picea/home/tkalman/rRNA_facility/RepeatMasker_only-unplaced_4-Nov-2021/pabies-2.0_unplaced.fasta
 
 ## create the out dir
 if [ ! -d $out ]; then
