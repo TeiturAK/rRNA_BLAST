@@ -1,0 +1,3 @@
+## Create MSA from fasta
+clustalo -i /crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/tRNA_seq/plant_tRNA-id90.fasta -o /crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/tRNA_seq/ClustalOmega/plant_tRNA-id90.st -v --outfmt=st
+
