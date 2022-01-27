@@ -6,28 +6,21 @@ set -eux
 ## source functions
 source ../UPSCb-common/src/bash/functions.sh
 
-module load bioinfo-tools BEDTools
-
 ## variables
-proj=facility
-mail=teitur.kalman@umu.se
+proj=snic2021-5-312
+mail=teitur.ahlgren.kalman@umu.se
 
-#a=/mnt/picea/home/tkalman/rRNA_facility/sliding-window/P.abies/Pabies.10000bp-windows.bed
-a=/mnt/picea/home/tkalman/rRNA_facility/sliding-window/P.abies/unplaced_contiglengths.bed
-b_dir=/mnt/picea/home/tkalman/rRNA_facility/RepeatMasker_only-unplaced_4-Nov-2021/pabies-2.0_unplaced.fasta
-
-out=/mnt/picea/home/tkalman/rRNA/sliding-window/P.abies/intersect
-
-bed_params="-wao"
+a_file=/crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/tRNA_seq/Infernal/tRNA-id90.cmsearch.sorted.bed
+b_file=/crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/sliding_window/unplaced_contiglengths.bed
+out=/crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/tRNA_seq/intersect
 
 ## create the out dir
 if [ ! -d $out ]; then
     mkdir -p $out
 fi
 
-for b in $(find $b_dir -name "*.merged.bed"); do
-  fnam=$(basename $a)_$(basename $b)
-  sbatch -A $proj -t 30:00 --mail-user=$mail -e $out/$fnam.err -o $out/$fnam.out \
-  -J $fnam -p node -n 1 ../UPSCb-common/pipeline/runBedToolsIntersect.sh $a $b $out $bed_params
-done
+fnam=$(basename $a_file).bedtools-intersect.$(basename $b_file)
+sbatch -A $proj -t 30:00 --mail-user=$mail -e $out/$fnam.err -o $out/$fnam.out \
+-J $fnam -p core -n 10 runBEDToolsIntersect.sh $a_file $b_file $out/$fnam.tsv -wao
+
 

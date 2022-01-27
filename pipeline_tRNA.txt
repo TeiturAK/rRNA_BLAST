@@ -1,3 +1,18 @@
-## Create MSA from fasta
-clustalo -i /crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/tRNA_seq/plant_tRNA-id90.fasta -o /crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/tRNA_seq/ClustalOmega/plant_tRNA-id90.st -v --outfmt=st
+## RCoffee
+module load bioinfo-tools T-Coffee/11.00.8cbe486
 
+# Create MSA from fasta
+t_coffee -seq <tRNA.fa> -mode rcoffee -method=slow_pair,lalign_id_pair -distance_matrix_mode=idscore -dp_mode=myers_miller_pair_wise -outfile <tRNA.aln>
+t_coffee -other_pg=seq_reformat -in <tRNA.aln> -action +add_alifold -output stockholm_aln -out <tRNA.sto>
+
+## Infernal
+module load bioinfo-tools infernal/1.1.2
+
+# Build covariance model
+cmbuild <tRNA.cm> <tRNA.sto>
+
+# Calibrate covariance model
+cmcalibrate <tRNA.cm>
+
+# Search genome 
+cmsearch <tRNA.cm> <genome.fa>
