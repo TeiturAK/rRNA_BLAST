@@ -16,3 +16,9 @@ cmcalibrate <tRNA.cm>
 
 # Search genome 
 cmsearch <tRNA.cm> <genome.fa>
+
+# Modify output to agree with bedformat
+submitInfernalOutToBED.sh
+
+# Intersect with sliding window of genome
+submitBEDToolsIntersect.sh
