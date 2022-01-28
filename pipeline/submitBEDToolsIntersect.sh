@@ -10,8 +10,8 @@ source ../UPSCb-common/src/bash/functions.sh
 proj=snic2021-5-312
 mail=teitur.ahlgren.kalman@umu.se
 
-a_file=/crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/tRNA_seq/Infernal/tRNA-id90.cmsearch.sorted.bed
-b_file=/crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/sliding_window/unplaced_contiglengths.bed
+a_file=/crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/sliding_window/Pabies.10000bp-windows.bed
+b_file=/crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/tRNA_seq/Infernal/tRNA-id90.cmsearch.sorted.bed
 out=/crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/tRNA_seq/intersect
 
 ## create the out dir
