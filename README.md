@@ -1,5 +1,6 @@
 # rRNA and tRNA search in genomes
 This is the directory where I BLAST RNA sequences against the latest P.abies assembly
+
 rRNA from different conifers  
 tRNA sequences from various landplants
 
