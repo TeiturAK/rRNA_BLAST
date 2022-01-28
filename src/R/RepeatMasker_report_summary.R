@@ -16,10 +16,11 @@ suppressPackageStartupMessages({
 })
 
 #' # Description
-#' Looking at the where rRNA sequences are found in the new P.abies assembly.
-#' 
+#' Looking at the where rDNA sequences are found in the new P.abies assembly.
 #' To produce this report I intersected 10kb windows of the genome with locations 
-#' of the rRNA sequences found with RepeatMasker.
+#' of the rDNA sequences found with RepeatMasker.
+#' 
+#' 
 
 #' ```{r set up, echo=FALSE}
 #' knitr::opts_knit$set(root.dir="/mnt/picea/home/tkalman")
@@ -107,4 +108,3 @@ plot.sliding_window_intersect <- function(RM.path) {
 
 plot.sliding_window_intersect("/mnt/picea/home/tkalman/rRNA/sliding-window/P.abies/intersect/unplaced_contiglengths-pabies-2.0_unplaced.fasta.merged.collapsed.bed")
 
-#' Looks like there is quite some separation between some contigs and others
