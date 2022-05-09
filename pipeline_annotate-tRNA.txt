@@ -1,0 +1,7 @@
+## tRNAscan-SE
+module load bioinfo-tools tRNAscan-SE/1.3.1
+
+# Scan a sequence file for tRNAs using tRNAscan
+# Search using covariance model analysis only and use an alternate covariance model in <tRNA.cm>
+tRNAscan-SE -C -c <tRNA.cm> -o <out> <genome.fa>
+
