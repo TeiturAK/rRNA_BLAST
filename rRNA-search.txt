@@ -1,3 +1,11 @@
+Searchterm for rRNA sequences (5th March 2021):
+("Pinus"[Organism] OR "Picea"[Organism]) AND (5S[All Fields] OR 5.8S[All Fields] OR 18S[All Fields] OR 25S[All Fields] OR 28S[All Fields]) AND rRNA[All Fields] NOT (mRNA[filter] OR cRNA[filter] OR ncRNA[filter] OR tRNA[filter]) NOT (chloroplast[filter] OR mitochondrion[filter] OR plastid[filter])
+
+Sequences were then merge with CD-hit using a 90% thresh,
+example of command:
+
+cd-hit-est -i tRNA.fasta -o tRNA-id90.fasta
+
 ## split the genome in 8 parts with seqkit split (got corrected to be split in 6 chunks by seqkit while parsing)
 ## the unplaced contigs are not split
 seqkit split -p 8 -2 -O /crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/fasta/fasta-split_chromosomes/pabies-2.0_chromosomes.fasta.gz/pabies-2.0_chromosomes.fasta.gz.split /crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/fasta/pabies-2.0_chromosomes.fasta.gz

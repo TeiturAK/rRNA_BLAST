@@ -1,0 +1,22 @@
+# How annotation tRNA gff was created:
+module load bioinfo-tools infernal/1.1.2 tRNAscan-SE/2.0.9
+tRNAscan-SE --thread 40 -I --thread 48 --gff /crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/tRNA_seq/tRNAscan-SE_28-June_snowy_2/results.gff --bed /crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/tRNA_seq/tRNAscan-SE_28-June_snowy_2/results.bed --hitsrc --progress -o /crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/tRNA_seq/tRNAscan-SE_28-June_snowy_2/results /crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/fasta/pabies-2.0_chromosomes_and_unplaced.fa
+
+In the output err file:
+Sequence file(s) to search:        /crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/fasta/pabies-2.0_chromosomes_and_unplaced.fa
+Search Mode:                       Eukaryotic
+Results written to:                /crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/tRNA_seq/tRNAscan-SE_28-June_snowy_2/results
+Output format:                     Tabular
+Searching with:                    Infernal First Pass->Infernal
+Isotype-specific model scan:       Yes
+Covariance model:                  /sw/bioinfo/tRNAscan-SE/2.0.9/rackham/lib/tRNAscan-SE/models/TRNAinf-euk.cm
+                                   /sw/bioinfo/tRNAscan-SE/2.0.9/rackham/lib/tRNAscan-SE/models/TRNAinf-euk-SeC.cm
+Infernal first pass cutoff score:  10
+
+
+# About why maximum sensitivity was not used
+After 5 days running time it did not seem like the max sensitivity was making that big of a difference in the number of sequences it found. 
+The non-sensitive mode found ~19000.
+Sensitive mode found 11800 after 5 days.
+11500 of the 11800 were found in the less sensitive search which I tested with:
+bedtools intersect -u -a tRNAscan-SE_28-June_snowy_2-max/results.gff -b tRNAscan-SE_28-June_snowy_2/results.gff | wc -l

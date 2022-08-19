@@ -18,4 +18,4 @@ shift
 params=$@
 
 # run 
-tRNAscan-SE --thread 20 $params -o $out $fasta
+tRNAscan-SE --thread 40 $params -o $out $fasta
