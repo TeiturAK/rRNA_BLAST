@@ -2,6 +2,7 @@
 module load bioinfo-tools T-Coffee/11.00.8cbe486
 
 # Create MSA from fasta in stockholm format
+# The fasta that was used came from the "picea" storage reference directory
 t_coffee -seq <tRNA.fa> -mode rcoffee -method=slow_pair,lalign_id_pair -distance_matrix_mode=idscore -dp_mode=myers_miller_pair_wise -outfile <tRNA.aln>
 t_coffee -other_pg=seq_reformat -in <tRNA.aln> -action +add_alifold -output stockholm_aln -out <tRNA.sto>
 
