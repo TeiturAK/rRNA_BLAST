@@ -12,8 +12,12 @@ module load bioinfo-tools barrnap/0.9
 
 fasta=$1
 shift
+
 out=$1
+shift
+
+options=$@
 
 # run 
 # barrnap [options] chr.fa
-barrnap --threads 20 --kingdom euk --incseq $fasta > $out/rrna.gff
+barrnap $options $fasta > $out
