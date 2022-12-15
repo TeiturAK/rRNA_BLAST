@@ -10,9 +10,6 @@ mail=teitur.ahlgren.kalman@umu.se
 ## source functions
 source ../UPSCb-common/src/bash/functions.sh
 
-#fasta=/crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/fasta/pabies-2.0_chromosomes_and_unplaced.fa
-#out=/crex/proj/uppstore2017145/V3/blast/rRNA_tRNA/rRNA_seq/barrnap_9_may_2022
-
 fasta=/crex/proj/uppstore2017145/V2/users/teitu/fasta_w-MT-and-CP/original/pabies-2.0_chromosomes_and_unplaced.fa
 out=/crex/proj/uppstore2017145/V2/users/teitu/rRNA_tRNA/rRNA_seq/barrnap_14_dec_2022
 
@@ -40,4 +37,4 @@ fi
 #   --outseq [X]      Save rRNA hit seqs to this FASTA file (default '')
 
 sbatch -A $proj -t 2-00:00:00 --mail-user=$mail -e $out/$fnam.err -o $out/$fnam.out \
--J $fnam -p core -n 20 runBarrnap.sh $fasta $out/rDNA.gff --threads 20 --kingdom euk --outseq $out/rDNA.fa
+-J $fnam -p core -n 20 runBarrnap.sh $fasta $out/rRNA.gff --threads 20 --kingdom euk --outseq $out/rRNA.fa

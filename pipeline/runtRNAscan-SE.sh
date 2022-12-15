@@ -8,14 +8,15 @@ set -eux
 source ../UPSCb-common/src/bash/functions.sh
 
 # load the modules
-#module load bioinfo-tools infernal/1.1.2 tRNAscan-SE/2.0.9
 module load bioinfo-tools infernal/1.1.2 tRNAscan-SE/2.0.9
 
 fasta=$1
 shift
+
 out=$1
 shift 
-params=$@
+
+options=$@
 
 # run 
-tRNAscan-SE --thread 40 $params -o $out $fasta
+tRNAscan-SE $options -o $out $fasta
