@@ -3,15 +3,15 @@
 ## be verbose and print
 set -eux
 
-proj=u2019003
+proj=facility
 mail=teitur.kalman@umu.se
 
 
 ## source functions
 source ../UPSCb-common/src/bash/functions.sh
 
-in=/mnt/picea/home/tkalman/rRNA/fasta/pabies-2.0_chromosomes_and_unplaced.fa
-out=/mnt/picea/home/tkalman/rRNA/BLAST_DB
+in=/mnt/picea/home/tkalman/FOR-ANALYSIS-IN-ALL-PHD-PROJECTS/fasta/Potra02_genome_with_chloroplast_and_mitochondrion.fasta.gz
+out=/mnt/picea/home/tkalman/FOR-ANALYSIS-IN-ALL-PHD-PROJECTS/BLAST_DB
 
 #for f in $(find $in -name "*.fa"); do
 #  fnam=$(basename $f)
