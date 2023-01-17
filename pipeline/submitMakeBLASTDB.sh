@@ -3,34 +3,27 @@
 ## be verbose and print
 set -eux
 
-proj=u2019003
+proj=snic2022-5-342
 mail=teitur.kalman@umu.se
 
+module load bioinfo-tools blast/2.12.0+
 
 ## source functions
 source ../UPSCb-common/src/bash/functions.sh
 
-in=/mnt/picea/home/tkalman/rRNA/fasta/pabies-2.0_chromosomes_and_unplaced.fa
-out=/mnt/picea/home/tkalman/rRNA/BLAST_DB
+in=/crex/proj/uppstore2017145/V2/reference/Picea-abies/v2.0/fasta/Picab02_chromosomes_and_unplaced.fa.gz
+out=/crex/proj/uppstore2017145/V2/users/teitu/rRNA_tRNA/blast_db
 
-#for f in $(find $in -name "*.fa"); do
-#  fnam=$(basename $f)
-#  outdir=$out/$fnam
-#
-#  if [ ! -d $outdir ]; then
-#    mkdir -p $outdir
-#  fi
+fnam=$(basename ${in/.fa.gz/})
 
-#  sbatch -A $proj -t 24:00:00 --mail-user=$mail -e $outdir/$fnam.err -o $outdir/$fnam.out \
-#  -J $fnam -p core runMakeBLASTDB.sh $f $outdir/$fnam.db
-#done
-
-fnam=$(basename $in)
-outdir=$out/$fnam
-
-if [ ! -d $outdir ]; then
-    mkdir -p $outdir
+if [ ! -d $out ]; then
+    mkdir -p $out
 fi
 
+#Usage: $0 [options] <fasta file> <out dir>
+#    Options:
+#            -p the type of file nucl/prot (default to nucl)
+#            -t the db title
 
-sbatch -A $proj -t 24:00:00 --mail-user=$mail -e $outdir/$fnam.err -o $outdir/$fnam.out -J $fnam -p core runMakeBLASTDB.sh $in $outdir/$fnam.db
+sbatch -A $proj -t 3-00:00:00 --mail-user=$mail -e $out/$fnam.err -o $out/$fnam.out \
+-J $fnam -p core -n 20 ../UPSCb-common/pipeline/runBlastPlusMakeblastdb.sh -p nucl -t $fnam $in $out
