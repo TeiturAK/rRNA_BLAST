@@ -13,8 +13,7 @@ barrnap --threads 20 --kingdom euk --outseq rRNA.fa pabies-2.0_chromosomes_and_u
 
 Full matches of 5S, 5.8S, 18S and 26S display array like distribution in genome at various places, more to be added about the report and possibly some more analysis.
 28S is the name of the annotation in the gff because that is what barrnap outputs in its euk mode.
-5.8S is found inside the 26S subunit, possibly that ITS has been filtered out from assembly.
-More notes will be added.
+5.8S is found inside the 26S subunit, possible that ITS has been filtered out from assembly. Annotation consistently finds 18S–5.8S–26S transcribed in other opposite order on the + strand. More notes will be added.
 
 #### Merge barrnap sequences with cd-hit-est v4.8.1
 cd-hit-est -i rRNA.fa -o rRNA.cd-hit-est.fa
