@@ -11,7 +11,7 @@ cd-hit-est -i Picea-Pinus_rRNA-subunits.fa -o Picea_Pinus_rRNA_subunits.merge_id
 ### Annotation with Barrnap v0.9
 barrnap --threads 20 --kingdom euk --outseq rRNA.fa pabies-2.0_chromosomes_and_unplaced.fa > rRNA.gff
 
-Full matches of 5S and 35S (5.8S, 18S and 26S) display array like distribution in genome. 28S is the name of the annotation in the gff because that is what barrnap outputs in its euk mode. 5.8S is found inside the 26S subunit. Probably because the HMM model is for 28S and interprets the ITS between these two subunits as part of the 28S subunit. 
+Full matches of 5S and 35S (5.8S, 18S and 26S) display array like distribution in genome. 28S is the name of the annotation in the gff because that is what barrnap outputs in its euk mode. 5.8S is found inside the 26S subunit. Probably because the HMM model is for 28S and interprets the ITS between these two subunits as part of the 28S subunit.
 
 #### Merge barrnap sequences with cd-hit-est v4.8.1
 cd-hit-est -i rRNA.fa -o rRNA.cd-hit-est.fa
