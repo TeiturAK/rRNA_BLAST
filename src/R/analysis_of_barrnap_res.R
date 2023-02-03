@@ -50,9 +50,6 @@ suppressPackageStartupMessages({
 #'  ITS1 is located between 18S and 5.8S rRNA genes, while ITS2 is between 5.8S and 28S (in opisthokonts, or 25S in plants) rRNA genes. 
 #'  (https://en.wikipedia.org/wiki/Internal_transcribed_spacer)
 #'  
-#'  
-
-
 #'  For 5S I expect that there will be stretches of 5S in tandem and these to have variable non-transcribed spacers: 
 #'  
 #'  "The fourth gene is called 5S rRNA, and it usually forms separate arrays at chromosomal loci that are independent of the 35S rDNA in plant genomes."
@@ -68,15 +65,6 @@ suppressPackageStartupMessages({
 #'  These tandem arrays may be localized on either a single or several chromosomes and 
 #'  are separated from the genes encoding the large rRNAs (Appels et al. 1980; Long and Dawid 1980; Ellis et al. 1988)."
 #'  https://www.ncbi.nlm.nih.gov/pmc/articles/PMC310874/
-
-#' Comments on findings:
-#' ... add summary of all of the below that I have observed. 
-#' 
-#' 
-#' 
-#' Unresolved, the 18S–5.8S–26S appear in same order on both strands.
-#' 5.8S is inside the 26S annotation. 
-#' The linker sequence 
 
 #' # Data
 fasta.fai.path <- "/mnt/picea/home/tkalman/tRNA-rRNA/fasta/pabies-2.0_chromosomes_and_unplaced.fa.fai"
