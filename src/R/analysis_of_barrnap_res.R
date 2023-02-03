@@ -13,12 +13,13 @@
 
 #' # Libraries 
 suppressPackageStartupMessages({
-  # library(systemPipeR)
+  library(systemPipeR)
   library(ggplot2)
   library(ggridges)
   library(DT)
   library(stringr)
   library(gridExtra)
+  library(microseq)
 })
 
 #' # Description
@@ -248,10 +249,37 @@ plot_rRNA(seq_to_look_at = "PA_sUP014")
 #' The contigs give a nice view of how the stretches of 5.8S, 18S and 26S are overlapping on the same strand.
 #' PA_sUP014 which is the smallest contig show the expected 18S-5.8S-26S https://pubmed.ncbi.nlm.nih.gov/15032949/.
 
-
-
 #' # Looking for evidence that the "full" matches of large subunits are transcribed together in the right order.
-tmp.df <- barrnap.df[which(barrnap.df$V1 == "PA_sUP012"), ]
-tmp.only_full_matches.df <- tmp.df[which(tmp.df$subunit.partial_info %in% no_short_or_partial_annotations), ]
+#' Does not work well to look at here but works well in genome browser. 
+# tmp.df <- barrnap.df[which(barrnap.df$V1 == "PA_sUP012"), ]
+# tmp.only_full_matches.df <- tmp.df[which(tmp.df$subunit.partial_info %in% no_short_or_partial_annotations), ]
 
+#' # Write full matches to file
+# no_short_or_partial_annotations <- c("5S", "5.8S", "18S", "28S")
+# barrnap.only_full_matches.df <- barrnap.df[which(barrnap.df$subunit.partial_info %in% no_short_or_partial_annotations), ]
+# 
+# barrnap.only_full_matches.df <- barrnap.only_full_matches.df[, c(1:9)]
+# 
+barrnap.only_full_matches.path <- "/mnt/picea/home/tkalman/tRNA-rRNA/rRNA_seq/barrnap_res/rRNA.full_matches.gff"
+# writeGFF(barrnap.only_full_matches.df, out.file = barrnap.only_full_matches)
+
+#' # How much of genome is covered by rDNA?
+moduleload("bioinfo-tools BEDTools")
+
+contig_length.sum <- sum(fai.df$V2)
+
+#' % of genome covered by all annotated rDNA regions
+rDNA_length.sum <- as.numeric(system(paste("bedtools sort -i", barrnap.path,
+                                           "| bedtools merge -i - | awk -F'\t' 'BEGIN{SUM=0}{ SUM+=$3-$2 }END{print SUM}'"),
+                                     intern = TRUE))
+
+print ((rDNA_length.sum/contig_length.sum) * 100)
+
+
+#' % of genome covered by full match annotated rDNA regions
+rDNA_fullmatch_length.sum <- as.numeric(system(paste("bedtools sort -i", barrnap.only_full_matches.path,
+                                                     "| bedtools merge -i - | awk -F'\t' 'BEGIN{SUM=0}{ SUM+=$3-$2 }END{print SUM}'"),
+                                               intern = TRUE))
+
+print ((rDNA_fullmatch_length.sum/contig_length.sum) * 100)
 
