@@ -37,9 +37,10 @@ suppressPackageStartupMessages({
 #'    5S: ∼120 nt
 #'    5.8S: ~150nt
 #'    18S: ~1700nt
-#'    25/26S: ~3700nt
+#'    25/26S: ~3400-3700nt
 #'    https://www.sciencedirect.com/science/article/abs/pii/0092867483904130?via%3Dihub
 #'    https://www.thermofisher.com/se/en/home/references/ambion-tech-support/rna-isolation/general-articles/ribosomal-rna-sizes.html
+#'    https://www.ncbi.nlm.nih.gov/nuccore/M11585.1
 
 #'  The expectation is that there will be rRNA islands on the chromosomes. 
 #'  5.8S, 18S and 26S will be transcribed together joined by a linker sequence like this 18S-5.8S-26S.
