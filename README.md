@@ -20,6 +20,6 @@ cd-hit-est -i rRNA.fa -o rRNA.cd-hit-est.fa
 #### (Search is done with Infernal in eukaryote mode)
 tRNAscan-SE -E -I --log log --gff tRNA.gff --bed tRNA.bed --missed missed --hitsrc --progress --thread 20 -o results pabies-2.0_chromosomes_and_unplaced.fa
 
-The count of tRNA in the output (~8000) is huge in comparison to many other species but the PltRNAdb has examples of species with tRNA annotations in the thousands: 
+The count of tRNA in the output (~8000) is huge in comparison to many other species but the PltRNAdb has examples of species with tRNA annotations in the thousands (Brassica napus, Chara Braunii, Hordeum vulgare, Triticum aestivum and Zea Mays): 
 https://journals.plos.org/plosone/article/figure?id=10.1371/journal.pone.0268904.t004.
-In a publication for Chinese fir, "Chinese fir genome and the evolution of gymnosperms" they explicitly state that they found ~4000 tRNA genes in the ~12GB genome (https://www.biorxiv.org/content/biorxiv/early/2022/10/26/2022.10.25.513437.full.pdf).
+In a publication for Chinese fir, "Chinese fir genome and the evolution of gymnosperms" they state that they found ~4000 tRNA genes in the ~12GB genome (https://www.biorxiv.org/content/biorxiv/early/2022/10/26/2022.10.25.513437.full.pdf).
