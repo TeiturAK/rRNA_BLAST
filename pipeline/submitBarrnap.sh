@@ -10,8 +10,17 @@ mail=teitur.ahlgren.kalman@umu.se
 ## source functions
 source ../UPSCb-common/src/bash/functions.sh
 
-fasta=/crex/proj/uppstore2017145/V2/users/teitu/fasta_w-MT-and-CP/original/pabies-2.0_chromosomes_and_unplaced.fa
-out=/crex/proj/uppstore2017145/V2/users/teitu/rRNA_tRNA/rRNA_seq/barrnap_14_dec_2022
+#fasta=/crex/proj/uppstore2017145/V2/users/teitu/fasta_w-MT-and-CP/original/pabies-2.0_chromosomes_and_unplaced.fa
+#out=/crex/proj/uppstore2017145/V2/users/teitu/rRNA_tRNA/rRNA_seq/barrnap_14_dec_2022
+
+#fasta=/crex/proj/uppstore2017145/V2/users/teitu/rRNA_tRNA/fasta/other_species_for_comparison/arabidopsis/TAIR9_chr_all.fas
+#out=/crex/proj/uppstore2017145/V2/users/teitu/rRNA_tRNA/rRNA_seq/barrnap_arabidopsis_20_jan_2023
+
+#fasta=/crex/proj/uppstore2017145/V2/users/teitu/rRNA_tRNA/fasta/other_species_for_comparison/aspen/Ptrichocarpa_v3.0_210.fa
+#out=/crex/proj/uppstore2017145/V2/users/teitu/rRNA_tRNA/rRNA_seq/barrnap_aspen_20_jan_2023
+
+fasta=/crex/proj/uppstore2017145/V2/users/teitu/rRNA_tRNA/fasta/other_species_for_comparison/zmays/B73_RefGen_v3.fa
+out=/crex/proj/uppstore2017145/V2/users/teitu/rRNA_tRNA/rRNA_seq/barrnap_maize_20_jan_2023
 
 fnam=$(basename $fasta).barrnap
 
@@ -36,5 +45,5 @@ fi
 #   --incseq          Include FASTA _input_ sequences in GFF3 output (default OFF)
 #   --outseq [X]      Save rRNA hit seqs to this FASTA file (default '')
 
-sbatch -A $proj -t 2-00:00:00 --mail-user=$mail -e $out/$fnam.err -o $out/$fnam.out \
+sbatch -A $proj -t 03:00:00 --mail-user=$mail -e $out/$fnam.err -o $out/$fnam.out \
 -J $fnam -p core -n 20 runBarrnap.sh $fasta $out/rRNA.gff --threads 20 --kingdom euk --outseq $out/rRNA.fa

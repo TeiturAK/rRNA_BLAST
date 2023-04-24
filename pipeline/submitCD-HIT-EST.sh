@@ -9,8 +9,11 @@ mail=teitur.ahlgren.kalman@umu.se
 ## source functions
 source ../UPSCb-common/src/bash/functions.sh
 
-fasta=/crex/proj/uppstore2017145/V2/users/teitu/rRNA_tRNA/rRNA_seq/barrnap_14_dec_2022/rRNA.fa
-out=/crex/proj/uppstore2017145/V2/users/teitu/rRNA_tRNA/rRNA_seq/cd-hit-est
+#fasta=/crex/proj/uppstore2017145/V2/users/teitu/rRNA_tRNA/rRNA_seq/barrnap_14_dec_2022/rRNA.fa
+#out=/crex/proj/uppstore2017145/V2/users/teitu/rRNA_tRNA/rRNA_seq/cd-hit-est
+
+fasta=/crex/proj/uppstore2017145/V2/users/teitu/rRNA_tRNA/tRNA_seq/tRNAscan-SE/tRNA.fa
+out=/crex/proj/uppstore2017145/V2/users/teitu/rRNA_tRNA/tRNA_seq/cd-hit-est
 
 fnam=$(basename ${fasta/.fa/.cd-hit-est})
 
