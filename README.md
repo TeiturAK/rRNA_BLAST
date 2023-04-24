@@ -17,8 +17,8 @@ Full matches of 5S and 35S (5.8S, 18S and 26S) display array like distribution i
 cd-hit-est -i rRNA.fa -o rRNA.cd-hit-est.fa
 
 ### Annotation with tRNAscan-SE v2.0.9
-#### (Search is done with Infernal in eukaryote mode)
-tRNAscan-SE -E -I --log log --gff tRNA.gff --bed tRNA.bed --missed missed --hitsrc --progress --thread 20 -o results pabies-2.0_chromosomes_and_unplaced.fa
+#### (Search is done with Infernal in eukaryote mode by default)
+tRNAscan-SE --log log --gff tRNA.gff --bed tRNA.bed --fasta tRNA.fa --missed missed --hitsrc --progress --thread 20 -o results pabies-2.0_chromosomes_and_unplaced.fa
 
 The count of tRNA in the output (~8000) is huge in comparison to many other species but the PltRNAdb has examples of species with tRNA annotations in the thousands (Brassica napus, Chara Braunii, Hordeum vulgare, Triticum aestivum and Zea Mays): 
 https://journals.plos.org/plosone/article/figure?id=10.1371/journal.pone.0268904.t004.
