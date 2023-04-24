@@ -13,12 +13,13 @@
 
 #' # Libraries 
 suppressPackageStartupMessages({
-  # library(systemPipeR)
+  library(systemPipeR)
   library(ggplot2)
   library(ggridges)
   library(DT)
   library(stringr)
   library(gridExtra)
+  library(microseq)
 })
 
 #' # Description
@@ -36,9 +37,10 @@ suppressPackageStartupMessages({
 #'    5S: ∼120 nt
 #'    5.8S: ~150nt
 #'    18S: ~1700nt
-#'    25/26S: ~3700nt
+#'    25/26S: ~3400-3700nt
 #'    https://www.sciencedirect.com/science/article/abs/pii/0092867483904130?via%3Dihub
 #'    https://www.thermofisher.com/se/en/home/references/ambion-tech-support/rna-isolation/general-articles/ribosomal-rna-sizes.html
+#'    https://www.ncbi.nlm.nih.gov/nuccore/M11585.1
 
 #'  The expectation is that there will be rRNA islands on the chromosomes. 
 #'  5.8S, 18S and 26S will be transcribed together joined by a linker sequence like this 18S-5.8S-26S.
@@ -49,9 +51,6 @@ suppressPackageStartupMessages({
 #'  ITS1 is located between 18S and 5.8S rRNA genes, while ITS2 is between 5.8S and 28S (in opisthokonts, or 25S in plants) rRNA genes. 
 #'  (https://en.wikipedia.org/wiki/Internal_transcribed_spacer)
 #'  
-#'  
-
-
 #'  For 5S I expect that there will be stretches of 5S in tandem and these to have variable non-transcribed spacers: 
 #'  
 #'  "The fourth gene is called 5S rRNA, and it usually forms separate arrays at chromosomal loci that are independent of the 35S rDNA in plant genomes."
@@ -67,15 +66,6 @@ suppressPackageStartupMessages({
 #'  These tandem arrays may be localized on either a single or several chromosomes and 
 #'  are separated from the genes encoding the large rRNAs (Appels et al. 1980; Long and Dawid 1980; Ellis et al. 1988)."
 #'  https://www.ncbi.nlm.nih.gov/pmc/articles/PMC310874/
-
-#' Comments on findings:
-#' ... add summary of all of the below that I have observed. 
-#' 
-#' 
-#' 
-#' Unresolved, the 18S–5.8S–26S appear in same order on both strands.
-#' 5.8S is inside the 26S annotation. 
-#' The linker sequence 
 
 #' # Data
 fasta.fai.path <- "/mnt/picea/home/tkalman/tRNA-rRNA/fasta/pabies-2.0_chromosomes_and_unplaced.fa.fai"
@@ -248,10 +238,37 @@ plot_rRNA(seq_to_look_at = "PA_sUP014")
 #' The contigs give a nice view of how the stretches of 5.8S, 18S and 26S are overlapping on the same strand.
 #' PA_sUP014 which is the smallest contig show the expected 18S-5.8S-26S https://pubmed.ncbi.nlm.nih.gov/15032949/.
 
-
-
 #' # Looking for evidence that the "full" matches of large subunits are transcribed together in the right order.
-tmp.df <- barrnap.df[which(barrnap.df$V1 == "PA_sUP012"), ]
-tmp.only_full_matches.df <- tmp.df[which(tmp.df$subunit.partial_info %in% no_short_or_partial_annotations), ]
+#' Does not work well to look at here but works well in genome browser. 
+# tmp.df <- barrnap.df[which(barrnap.df$V1 == "PA_sUP012"), ]
+# tmp.only_full_matches.df <- tmp.df[which(tmp.df$subunit.partial_info %in% no_short_or_partial_annotations), ]
 
+#' # Write full matches to file
+# no_short_or_partial_annotations <- c("5S", "5.8S", "18S", "28S")
+# barrnap.only_full_matches.df <- barrnap.df[which(barrnap.df$subunit.partial_info %in% no_short_or_partial_annotations), ]
+# 
+# barrnap.only_full_matches.df <- barrnap.only_full_matches.df[, c(1:9)]
+# 
+barrnap.only_full_matches.path <- "/mnt/picea/home/tkalman/tRNA-rRNA/rRNA_seq/barrnap_res/rRNA.full_matches.gff"
+# writeGFF(barrnap.only_full_matches.df, out.file = barrnap.only_full_matches)
+
+#' # How much of genome is covered by rDNA?
+moduleload("bioinfo-tools BEDTools")
+
+contig_length.sum <- sum(fai.df$V2)
+
+#' % of genome covered by all annotated rDNA regions
+rDNA_length.sum <- as.numeric(system(paste("bedtools sort -i", barrnap.path,
+                                           "| bedtools merge -i - | awk -F'\t' 'BEGIN{SUM=0}{ SUM+=$3-$2 }END{print SUM}'"),
+                                     intern = TRUE))
+
+print ((rDNA_length.sum/contig_length.sum) * 100)
+
+
+#' % of genome covered by full match annotated rDNA regions
+rDNA_fullmatch_length.sum <- as.numeric(system(paste("bedtools sort -i", barrnap.only_full_matches.path,
+                                                     "| bedtools merge -i - | awk -F'\t' 'BEGIN{SUM=0}{ SUM+=$3-$2 }END{print SUM}'"),
+                                               intern = TRUE))
+
+print ((rDNA_fullmatch_length.sum/contig_length.sum) * 100)
 
